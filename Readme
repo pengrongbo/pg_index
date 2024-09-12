@@ -1,5 +1,5 @@
 
-# Comparison: Full Text Search (FTS) vs LIKE/ILIKE in PostgreSQL with GIN Indexes
+# FTS vs LIKE/ILIKE in PostgreSQL with GIN Indexes
 
 ## 1. Index Creation Speed and Disk Space Usage
 
