@@ -80,7 +80,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 2. **Insert 50 million records and record the time**:
    ```sql
-   	iming on
+   \timing on
    INSERT INTO t_hash (id, md5)
    SELECT id, md5(id::text)
    FROM generate_series(1, 50000000) AS id;
@@ -124,7 +124,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 2. **Insert 50 million records and record the time**:
    ```sql
-    iming on
+   \timing on
    INSERT INTO t_hash (id, md5)
    SELECT id, md5(id::text)
    FROM generate_series(1, 50000000) AS id;
@@ -172,7 +172,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 2. **Insert 50 million records and record the time**:
    ```sql
-    iming on
+   \timing on
    INSERT INTO t_hash (id, md5)
    SELECT id, md5(id::text)
    FROM generate_series(1, 50000000) AS id;
