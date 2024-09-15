@@ -27,9 +27,14 @@ This experiment is designed to compare the performance of three different scenar
    INSERT INTO test_table (id, data)
    SELECT generate_series(1, 1000), md5(random()::text);
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
-     Execution Time: 3.265 ms
+     Insert on test_table  (cost=0.00..17.53 rows=1000 width=40) (actual time=3.123..3.125 rows=0 loops=1)
+       ->  Subquery Scan on "*SELECT*"  (cost=0.00..17.53 rows=1000 width=40) (actual time=0.104..0.995 rows=1000 loops=1)
+             ->  ProjectSet  (cost=0.00..5.03 rows=1000 width=36) (actual time=0.101..0.862 rows=1000 loops=1)
+                   ->  Result  (cost=0.00..0.01 rows=1 width=0) (actual time=0.003..0.003 rows=1 loops=1)
+       Planning Time: 0.962 ms
+       Execution Time: 3.265 ms
      ```
 
 2. **Insert a single record (record query plan and time)**:
@@ -37,8 +42,11 @@ This experiment is designed to compare the performance of three different scenar
    EXPLAIN ANALYZE 
    INSERT INTO test_table (id, data) VALUES (1001, 'single_insert_no_index');
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
+     Insert on test_table  (cost=0.00..0.01 rows=1 width=40) (actual time=0.127..0.127 rows=0 loops=1)
+       ->  Result  (cost=0.00..0.01 rows=1 width=40) (actual time=0.005..0.005 rows=1 loops=1)
+     Planning Time: 0.051 ms
      Execution Time: 0.525 ms
      ```
 
@@ -66,9 +74,14 @@ This experiment is designed to compare the performance of three different scenar
    INSERT INTO test_table (id, data)
    SELECT generate_series(1, 1000), md5(random()::text);
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
-     Execution Time: 7.839 ms
+     Insert on test_table  (cost=0.00..17.53 rows=1000 width=40) (actual time=7.507..7.508 rows=0 loops=1)
+       ->  Subquery Scan on "*SELECT*"  (cost=0.00..17.53 rows=1000 width=40) (actual time=0.070..0.611 rows=1000 loops=1)
+             ->  ProjectSet  (cost=0.00..5.03 rows=1000 width=36) (actual time=0.068..0.522 rows=1000 loops=1)
+                   ->  Result  (cost=0.00..0.01 rows=1 width=0) (actual time=0.003..0.005 rows=1 loops=1)
+       Planning Time: 0.238 ms
+       Execution Time: 7.839 ms
      ```
 
 4. **Insert a single record (record query plan and time)**:
@@ -76,8 +89,11 @@ This experiment is designed to compare the performance of three different scenar
    EXPLAIN ANALYZE 
    INSERT INTO test_table (id, data) VALUES (1001, 'single_insert_btree');
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
+     Insert on test_table  (cost=0.00..0.01 rows=1 width=40) (actual time=0.169..0.170 rows=0 loops=1)
+       ->  Result  (cost=0.00..0.01 rows=1 width=40) (actual time=0.002..0.002 rows=1 loops=1)
+     Planning Time: 0.036 ms
      Execution Time: 0.250 ms
      ```
 
@@ -114,9 +130,14 @@ This experiment is designed to compare the performance of three different scenar
    INSERT INTO test_table (id, data)
    SELECT generate_series(1, 1000), md5(random()::text);
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
-     Execution Time: 15.858 ms
+     Insert on test_table  (cost=0.00..17.53 rows=1000 width=40) (actual time=15.553..15.554 rows=0 loops=1)
+       ->  Subquery Scan on "*SELECT*"  (cost=0.00..17.53 rows=1000 width=40) (actual time=0.023..0.800 rows=1000 loops=1)
+             ->  ProjectSet  (cost=0.00..5.03 rows=1000 width=36) (actual time=0.021..0.690 rows=1000 loops=1)
+                   ->  Result  (cost=0.00..0.01 rows=1 width=0) (actual time=0.003..0.004 rows=1 loops=1)
+       Planning Time: 0.072 ms
+       Execution Time: 15.858 ms
      ```
 
 4. **Insert a single record (record query plan and time)**:
@@ -124,8 +145,11 @@ This experiment is designed to compare the performance of three different scenar
    EXPLAIN ANALYZE 
    INSERT INTO test_table (id, data) VALUES (1001, 'single_insert_trigram_gin');
    ```
-   - **Result**:
+   - **Query Plan**:
      ```plaintext
+     Insert on test_table  (cost=0.00..0.01 rows=1 width=40) (actual time=0.291..0.292 rows=0 loops=1)
+       ->  Result  (cost=0.00..0.01 rows=1 width=40) (actual time=0.003..0.004 rows=1 loops=1)
+     Planning Time: 0.150 ms
      Execution Time: 0.498 ms
      ```
 
